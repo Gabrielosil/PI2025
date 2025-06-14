@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Acessível</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <button id="addProductBtn" style="display: none;">Adicionar Produto</button>
+            <button id="removeProductBtn" style="display: none;">Remover Anúncio</button>
+        </div>
+        <div class="header-center">
+            <h1>Loja Acessível</h1>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar produtos...">
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="profile-section">
+                <div class="profile-image" id="profileImageBtn">
+                    👤
+                </div>
+                <div class="profile-options" id="profileOptions">
+                    <button id="loginBtnHeader">Entrar</button>
+                    <button id="registerBtnHeader">Cadastrar</button>
+                    <button id="createStoreBtn">Criar Minha Loja</button>
+                    <button id="myStoreBtn">Minha Loja</button>
+                    <button id="logoutBtn">Sair</button>
+                </div>
+            </div>
+            <div class="cart-icon" id="cartIcon">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="product-list" class="product-grid">
+            </section>
+    </main>
+
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Adicionar Novo Produto</h2>
+            <form id="addProductForm">
+                <label for="productName">Nome do Produto:</label>
+                <input type="text" id="productName" required>
+
+                <label for="productDescription">Descrição:</label>
+                <textarea id="productDescription" required></textarea>
+
+                <label for="productImage">URL da Imagem:</label>
+                <input type="text" id="productImage" placeholder="Ex: https://via.placeholder.com/200x200" required>
+
+                <label for="productValue">Valor (R$):</label>
+                <input type="number" id="productValue" step="0.01" min="0.01" required>
+
+                <label for="productCategory">Categoria:</label>
+                <input type="text" id="productCategory" required>
+
+                <label for="productStock">Quantidade em Estoque:</label>
+                <input type="number" id="productStock" min="0" required>
+
+                <label for="productDeliveryTime">Tempo de Entrega (dias):</label>
+                <input type="number" id="productDeliveryTime" min="1" required>
+
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button cart-close-button">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div id="cartItems">
+                </div>
+            <p class="cart-total">Total: R$ <span id="cartTotal">0.00</span></p>
+            <button id="checkoutButton">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <div class="login-register-modal" id="loginRegisterModal">
+        <div class="container">
+            <div class="form-box login">
+                <form action="">
+                    <h1>Login</h1>
+                    <div class="input-box">
+                        <input type="text" placeholder="Username" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Password" required>
+                        <i class='bx bxs-lock-alt'></i>
+                    </div>
+                    <div class="forgot-link">
+                        <a href="#">Esqueceu a senha?</a>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    <p>ou entre com plataformas sociais</p>
+                    <div class="social-icons">
+                        <a href="#"><i class='bx bxl-google'></i></a>
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-github'></i></a>
+                        <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-box register">
+                <form action="">
+                    <h1>Cadastro</h1>
+                    <div class="input-box">
+                        <input type="text" placeholder="Username" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" placeholder="Email" required>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Password" required>
+                        <i class='bx bxs-lock-alt'></i>
+                    </div>
+                    <div class="forgot-link">
+                        <a href="#">Esqueceu a senha?</a>
+                    </div>
+                    <button type="submit" class="btn">Cadastrar</button>
+                    <p>ou cadastre-se com plataformas sociais</p>
+                    <div class="social-icons">
+                        <a href="#"><i class='bx bxl-google'></i></a>
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-github'></i></a>
+                        <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    </div>
+                </form>
+            </div>
+            <div class="toggle-box">
+                <div class="toggle-panel toggle-left">
+                    <h1>Olá, Bem-vindo!</h1>
+                    <p>Não tem uma conta?</p>
+                    <button class="btn register-btn">Cadastrar</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Bem-vindo de Volta!</h1>
+                    <p>Já tem uma conta?</p>
+                    <button class="btn login-btn">Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="createStoreModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Criar Minha Loja</h2>
+            <form id="createStoreForm">
+                <label for="storeCnpj">CNPJ:</label>
+                <input type="text" id="storeCnpj" placeholder="XX.XXX.XXX/XXXX-XX" required>
+
+                <label for="storeSocialReason">Razão Social:</label>
+                <input type="text" id="storeSocialReason" required>
+
+                <label for="storeFantasyName">Nome Fictício:</label>
+                <input type="text" id="storeFantasyName" required>
+
+                <label for="storeCeo">CEO:</label>
+                <input type="text" id="storeCeo" required>
+
+                <label for="storeAddress">Endereço:</label>
+                <input type="text" id="storeAddress" required>
+
+                <label for="storeEmail">Email da Loja:</label>
+                <input type="email" id="storeEmail" required>
+
+                <label for="storePhone">Telefone da Loja:</label>
+                <input type="tel" id="storePhone" placeholder="(XX) XXXXX-XXXX" required>
+
+                <label for="storeOwnerCpf">CPF do Proprietário:</label>
+                <input type="text" id="storeOwnerCpf" placeholder="XXX.XXX.XXX-XX" required>
+
+                <button type="submit">Criar Loja</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="productDetailContent">
+                </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
