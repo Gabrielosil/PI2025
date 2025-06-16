@@ -32,6 +32,11 @@
                     <button id="createStoreBtn">Criar Minha Loja</button>
                     <button id="myStoreBtn">Minha Loja</button>
                     <button id="logoutBtn">Sair</button>
+                    <div class="theme-options">
+                        <button id="darkModeToggle">Modo Escuro</button>
+                        <button id="colorblindModeToggle">Modo Daltônico</button>
+                         <button id="lightModeToggle" style="display: none;">Modo Claro</button>
+                    </div>
                 </div>
             </div>
             <div class="cart-icon" id="cartIcon">
@@ -43,7 +48,7 @@
 
     <main>
         <section id="product-list" class="product-grid">
-            </section>
+        </section>
     </main>
 
     <div id="addProductModal" class="modal">
@@ -82,24 +87,26 @@
             <span class="close-button cart-close-button">&times;</span>
             <h2>Seu Carrinho</h2>
             <div id="cartItems">
-                </div>
+            </div>
             <p class="cart-total">Total: R$ <span id="cartTotal">0.00</span></p>
             <button id="checkoutButton">Finalizar Compra</button>
         </div>
     </div>
 
     <div class="login-register-modal" id="loginRegisterModal">
-        <div class="container">
+        <div class="container" id="loginRegisterContainer">
+            <span class="close-button login-close-button">&times;</span>
             <div class="form-box login">
                 <form action="">
                     <h1>Login</h1>
                     <div class="input-box">
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" placeholder="Nome de usuário" required>
                         <i class='bx bxs-user'></i>
                     </div>
                     <div class="input-box">
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Senha" required>
                         <i class='bx bxs-lock-alt'></i>
+                        <i class='bx bxs-show password-toggle'></i>
                     </div>
                     <div class="forgot-link">
                         <a href="#">Esqueceu a senha?</a>
@@ -119,7 +126,7 @@
                 <form action="">
                     <h1>Cadastro</h1>
                     <div class="input-box">
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" placeholder="Nome de usuário" required>
                         <i class='bx bxs-user'></i>
                     </div>
                     <div class="input-box">
@@ -127,12 +134,12 @@
                         <i class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-box">
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Senha" required>
                         <i class='bx bxs-lock-alt'></i>
+                        <i class='bx bxs-show password-toggle'></i>
                     </div>
                     <div class="forgot-link">
-                        <a href="#">Esqueceu a senha?</a>
-                    </div>
+                        <a href="#"> </a> </div>
                     <button type="submit" class="btn">Cadastrar</button>
                     <p>ou cadastre-se com plataformas sociais</p>
                     <div class="social-icons">
@@ -143,20 +150,22 @@
                     </div>
                 </form>
             </div>
+
             <div class="toggle-box">
-                <div class="toggle-panel toggle-left">
-                    <h1>Olá, Bem-vindo!</h1>
-                    <p>Não tem uma conta?</p>
-                    <button class="btn register-btn">Cadastrar</button>
-                </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Bem-vindo de Volta!</h1>
-                    <p>Já tem uma conta?</p>
-                    <button class="btn login-btn">Entrar</button>
+                    <p>Já tem uma conta? Clique no botão para fazer o login!</p>
+                    <button class="btn" id="toggleToLogin">Entrar</button>
+                </div>
+                <div class="toggle-panel toggle-left">
+                    <h1>Olá, Bem-vindo!</h1>
+                    <p>Ainda não tem uma conta? Cadastre-se e junte-se a nós!</p>
+                    <button class="btn" id="toggleToRegister">Cadastrar</button>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div id="createStoreModal" class="modal">
         <div class="modal-content">
@@ -196,7 +205,7 @@
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <div id="productDetailContent">
-                </div>
+            </div>
         </div>
     </div>
 

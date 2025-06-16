@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{titulo}}</title>
+    <style>
+        body { font-family: sans-serif; }
+        .produto { border: 1px solid #ccc; padding: 10px; margin: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>{{titulo}}</h1>
+    <p>Olá, {{nomeUsuario}}!</p>
+
+    <h2>Nossos Produtos:</h2>
+    <div>
+        {{!-- O #each é um comando do HBS para fazer um loop --}}
+        {{#each produtos}}
+            <div class="produto">
+                {{!-- 'this' se refere ao item atual do loop (cada produto) --}}
+                <h3>{{this.nome}}</h3>
+                <p>Preço: R$ {{this.preco}}</p>
+            </div>
+        {{/each}}
+    </div>
+</body>
+</html>
