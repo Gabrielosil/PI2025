@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{titulo}}</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <button id="addProductBtn" style="display: none;">Adicionar Produto</button>
+            <button id="removeProductBtn" style="display: none;">Remover Anúncio</button>
+        </div>
+        <div class="header-center">
+            <h1>Loja Acessível</h1>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar produtos...">
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="profile-section">
+                <div class="profile-image" id="profileImageBtn">
+                    👤
+                </div>
+                <div class="profile-options" id="profileOptions">
+                    <button id="loginBtnHeader">Entrar</button>
+                    <button id="registerBtnHeader">Cadastrar</button>
+                    <button id="createStoreBtn" style="display: none;">Criar Minha Loja</button>
+                    <button id="myStoreBtn" style="display: none;">Minha Loja</button>
+                    <button id="logoutBtn" style="display: none;">Sair</button>
+                    <div class="theme-options">
+                        <button id="darkModeToggle">Modo Escuro</button>
+                        <button id="colorblindModeToggle">Modo Daltônico</button>
+                        <button id="lightModeToggle" style="display: none;">Modo Claro</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-icon" id="cartIcon">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="product-list" class="product-grid">
+            {{#each products}}
+                <div class="product-card" data-id="{{this.id}}" data-name="{{this.name}}" data-value="{{this.value}}" data-image="{{this.image}}">
+                    <button class="delete-product-btn" data-id="{{this.id}}">&times;</button>
+                    
+                    <img src="{{this.image}}" alt="{{this.name}}" class="product-image">
+                    <h3>{{this.name}}</h3>
+                    <p>{{this.description}}</p>
+                    <div class="product-details">
+                        <p><strong class="detail-label">Categoria:</strong> {{this.category}}</p>
+                        <p><strong class="detail-label">Estoque:</strong> {{this.stock}}</p>
+                    </div>
+                    <div class="price">R$ {{this.value}}</div>
+                    <button class="add-to-cart">Adicionar ao Carrinho</button>
+                </div>
+            {{else}}
+                <p style="grid-column: 1 / -1; text-align: center;">Nenhum produto cadastrado no banco de dados. Adicione o primeiro!</p>
+            {{/each}}
+        </section>
+    </main>
+
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Adicionar Novo Produto</h2>
+            <form id="addProductForm">
+                <label for="productName">Nome do Produto:</label>
+                <input type="text" id="productName" name="name" required>
+                <label for="productDescription">Descrição:</label>
+                <textarea id="productDescription" name="description" required></textarea>
+                <label for="productImage">URL da Imagem:</label>
+                <input type="text" id="productImage" name="image" placeholder="Ex: https://via.placeholder.com/200x200" required>
+                <label for="productValue">Valor (R$):</label>
+                <input type="number" id="productValue" name="value" step="0.01" min="0.01" required>
+                <label for="productCategory">Categoria:</label>
+                <input type="text" id="productCategory" name="category" required>
+                <label for="productStock">Quantidade em Estoque:</label>
+                <input type="number" id="productStock" name="stock" min="0" required>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button cart-close-button">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div id="cartItems"></div>
+            <p class="cart-total">Total: R$ <span id="cartTotal">0.00</span></p>
+            <button id="checkoutButton">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <div class="login-register-modal" id="loginRegisterModal">
+        <div class="container" id="loginRegisterContainer">
+            <span class="close-button login-close-button">&times;</span>
+            <div class="form-box login">
+                <form id="loginForm">
+                    <h1>Login</h1>
+                    <div class="input-box">
+                        <input type="text" placeholder="Nome de usuário ou Email" name="identifier" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Senha" name="password" required>
+                        <i class='bx bxs-lock-alt'></i>
+                        <i class='bx bxs-show password-toggle'></i>
+                    </div>
+                    <div class="forgot-link"><a href="#">Esqueceu a senha?</a></div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+            <div class="form-box register">
+                <form id="registerForm">
+                    <h1>Cadastro</h1>
+                    <div class="input-box">
+                        <input type="text" placeholder="Nome de usuário" name="username" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" placeholder="Email" name="email" required>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Senha" name="password" required>
+                        <i class='bx bxs-lock-alt'></i>
+                        <i class='bx bxs-show password-toggle'></i>
+                    </div>
+                    <div class="forgot-link" style="height: 18px;"></div>
+                    <button type="submit" class="btn">Cadastrar</button>
+                </form>
+            </div>
+            <div class="toggle-box">
+                <div class="toggle-panel toggle-right">
+                    <h1>Bem-vindo de Volta!</h1>
+                    <p>Já tem uma conta? Clique no botão para fazer o login!</p>
+                    <button class="btn" id="toggleToLogin">Entrar</button>
+                </div>
+                <div class="toggle-panel toggle-left">
+                    <h1>Olá, Bem-vindo!</h1>
+                    <p>Ainda não tem uma conta? Cadastre-se e junte-se a nós!</p>
+                    <button class="btn" id="toggleToRegister">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="createStoreModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Criar Minha Loja</h2>
+            <form id="createStoreForm">
+                <label for="storeCnpj">CNPJ:</label>
+                <input type="text" id="storeCnpj" name="cnpj" placeholder="XX.XXX.XXX/XXXX-XX" required>
+                <label for="storeSocialReason">Razão Social:</label>
+                <input type="text" id="storeSocialReason" name="socialReason" required>
+                <label for="storeFantasyName">Nome Fantasia:</label>
+                <input type="text" id="storeFantasyName" name="fantasyName" required>
+                <label for="storeCeo">CEO:</label>
+                <input type="text" id="storeCeo" name="ceo" required>
+                <label for="storeAddress">Endereço:</label>
+                <input type="text" id="storeAddress" name="address" required>
+                <label for="storeEmail">Email da Loja:</label>
+                <input type="email" id="storeEmail" name="email" required>
+                <label for="storePhone">Telefone da Loja:</label>
+                <input type="tel" id="storePhone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
+                <label for="storeOwnerCpf">CPF do Proprietário:</label>
+                <input type="text" id="storeOwnerCpf" name="ownerCpf" placeholder="XXX.XXX.XXX-XX" required>
+                <button type="submit">Criar Loja</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
