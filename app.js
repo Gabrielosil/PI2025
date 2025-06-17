@@ -153,3 +153,4 @@ app.post('/stores', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor rodando! Acesse http://localhost:${port}`);
 });
+
